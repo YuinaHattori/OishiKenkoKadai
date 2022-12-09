@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,27 +35,39 @@ fun RecipeListScreen(
     viewModel: RecipeListViewModel = hiltViewModel()
 ) {
     val cookingRecords by viewModel.cookingRecords.collectAsStateWithLifecycle()
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                modifier = Modifier,
-                backgroundColor = MaterialTheme.colors.background,
-
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.header),
-                    contentDescription = "Application Header",
-                    contentScale = ContentScale.FillWidth,
-                )
-            }
-        }
-    )
-    { innerPadding ->
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth())
+    {
+        Image(
+            painter = painterResource(R.drawable.header),
+            contentDescription = "Application Header",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(width = 300.dp, height = 64.dp)
+        )
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                modifier = Modifier,
+//                backgroundColor = MaterialTheme.colors.background,
+//
+//            ) {
+//                Image(
+//                    painter = painterResource(R.drawable.header),
+//                    contentDescription = "Application Header",
+//                    contentScale = ContentScale.FillWidth,
+//                )
+//            }
+//        }
+//    )
+//    { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(innerPadding)
-                .consumedWindowInsets(innerPadding)
+//                .padding(innerPadding)
+//                .consumedWindowInsets(innerPadding)
         ) {
             items(cookingRecords) { it ->
                 RecipeListItem(it)
